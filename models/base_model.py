@@ -20,7 +20,6 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.datetime.now()
         self.updated_at = datetime.datetime.now()
-        print(type(self.created_at))
 
     def __str__(self):
         """
