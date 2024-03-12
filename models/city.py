@@ -7,5 +7,5 @@ from models.base_model import BaseModel
 
 class City(BaseModel):
     """Class derived from BaseModel representing a city"""
-    state = ""
+    state_id = ""
     name = ""
