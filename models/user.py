@@ -6,6 +6,7 @@ Defines a class user that inherits from BaseModel
 
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     """Implements a User class derived from BaseModel"""
     email = ""

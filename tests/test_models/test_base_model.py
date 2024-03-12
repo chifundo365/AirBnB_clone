@@ -57,7 +57,6 @@ class Test_BaseModel(unittest.TestCase):
                          today.day)
         self.assertEqual(self.base.updated_at.second,
                          today.second)
-        
         # test **kwargs
         dict_obj = self.base.to_dict()
         dict_obj["country"] = "USA"
@@ -67,8 +66,6 @@ class Test_BaseModel(unittest.TestCase):
         self.assertIsInstance(new_instance.created_at, datetime)
         self.assertIsInstance(new_instance.updated_at, datetime)
         self.assertIsInstance(new_instance.id, str)
-
-
         # check if attributes matches with the values in \ **kwargs
         self.assertEqual(new_instance.created_at, datetime.fromisoformat(
             dict_obj.get("created_at")))
@@ -135,11 +132,11 @@ class Test_BaseModel_save(unittest.TestCase):
     def setUp(self):
         if os.path.isfile("file.json"):
             os.remove("file.json")
+
     @classmethod
     def tearDown(self):
-        # if os.path.isfile("file.json"):
-        #     os.remove("file.json")
-        pass
+        if os.path.isfile("file.json"):
+            os.remove("file.json")
 
     def test_one_save(self):
         """tests save method when called one time"""
@@ -151,16 +148,16 @@ class Test_BaseModel_save(unittest.TestCase):
         bm.save()
         self.assertLess(old_update_at, bm.updated_at)
         self.assertEqual(old_created_at, bm.created_at)
-        
+
     def test_two_saves(self):
-        bm  = BaseModel()
+        bm = BaseModel()
         bm.save()
         first_updated_at = bm.updated_at
         time.sleep(2)
         bm.save()
         second_update_at = bm.updated_at
         self.assertGreater(second_update_at, first_updated_at)
-    
+
     def test_one_file_json(self):
         bm = BaseModel()
         bm.save()
@@ -171,7 +168,7 @@ class Test_BaseModel_save(unittest.TestCase):
     def test_two_file_json(self):
         bm1 = BaseModel()
         bm2 = BaseModel()
-        bm1_id  = bm1.id
+        bm1_id = bm1.id
         bm2_id = bm2.id
         bm1.save()
         time.sleep(1)
@@ -192,12 +189,10 @@ class Test_BaseModel_save(unittest.TestCase):
                 for k, v in obj.items():
                     if bm_id in k:
                         obj = obj[k]
-                     
             bm_new = BaseModel(**obj)
             self.assertEqual(bm.id, bm_new.id)
             self.assertEqual(bm.created_at, bm_new.created_at)
             self.assertEqual(bm.updated_at, bm_new.updated_at)
-
 
 
 if __name__ == "__main__":
